@@ -18,8 +18,8 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/huasan2025/MatrixTag-Studio.git"
-Issues = "https://github.com/huasan2025/MatrixTag-Studio/issues"
+Homepage = "https://github.com/huasan2025/DMLabelTool"
+Issues = "https://github.com/huasan2025/DMLabelTool/issues"
 
 [project.scripts]
 dm-label-tool = "dm_label_tool.main:main"

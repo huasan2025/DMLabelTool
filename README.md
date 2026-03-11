@@ -1,6 +1,7 @@
 # DMLabelTool
 
 Cross-platform industrial `Data Matrix` label generator for macOS and Windows.
+Repository: https://github.com/huasan2025/DMLabelTool
 
 This project supports:
 - GUI mode for operations users
