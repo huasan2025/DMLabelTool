@@ -1,0 +1,60 @@
+name: release-build
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install runtime deps (macOS)
+        if: runner.os == 'macOS'
+        run: brew install libdmtx
+
+      - name: Install Python deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt pyinstaller build
+
+      - name: Build wheel
+        run: python -m build
+
+      - name: Build GUI artifact
+        run: pyinstaller packaging/dm_label_tool_gui.spec
+
+      - name: Archive build folder
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: Compress-Archive -Path dist/DMLabelTool/* -DestinationPath dist/DMLabelTool-windows.zip
+
+      - name: Archive build folder (macOS)
+        if: runner.os == 'macOS'
+        run: |
+          cd dist
+          zip -r DMLabelTool-macos.zip DMLabelTool
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: DMLabelTool-${{ runner.os }}
+          path: |
+            dist/*.zip
+            dist/*.whl
+            dist/*.tar.gz
+

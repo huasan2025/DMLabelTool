@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "matrixtag-studio"
+version = "0.1.0"
+description = "Cross-platform industrial Data Matrix label generator (GUI + CLI)"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [
+  { name = "MatrixTag Studio Contributors" }
+]
+dependencies = [
+  "Pillow>=10.0.0",
+  "pylibdmtx>=0.1.10",
+]
+
+[project.urls]
+Homepage = "https://github.com/huasan2025/MatrixTag-Studio.git"
+Issues = "https://github.com/huasan2025/MatrixTag-Studio/issues"
+
+[project.scripts]
+matrixtag-studio = "dm_label_tool.main:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]

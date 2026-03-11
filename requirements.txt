@@ -1,0 +1,3 @@
+Pillow>=10.0.0
+pylibdmtx>=0.1.10
+
